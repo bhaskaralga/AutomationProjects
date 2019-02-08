@@ -3,7 +3,7 @@
 	thread-count="1" preserve-order="true">	
 <test name="TestROOperation">	
 	<classes>
-		<class name="com.auto.testcases.TestROOperation" />
+		<class name="com.auto.testcases.TestROOPeration" />
 		</classes>	
 	</test>
 </suite>
