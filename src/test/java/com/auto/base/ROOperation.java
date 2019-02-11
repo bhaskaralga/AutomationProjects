@@ -1,12 +1,16 @@
 package com.auto.base;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -253,7 +257,9 @@ public class ROOperation {
 		System.out.println("clicking on option");
 		Select advisor = new Select(adv);
 		advisor.selectByIndex(1);
-		type("mileage_id","85410");
+		System.out.println("enetering mileage");
+		waitUntil(By.id("createMileage"));
+		type("mileage_id","85420");
 		
 	}
 	
@@ -265,11 +271,30 @@ public class ROOperation {
 		System.out.println("clicking on button");
 		driver.findElement(By.xpath(OR.getProperty("ro_but_xpath"))).click();
 		System.out.println("clicked on create ro button");
+		waitUntil(By.xpath("//div[@class='RONum']"));
+				try {
+			System.out.println("capturing screenshot");
+			capture("Ronumber");
+			System.out.println("captured screenshot");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 	public void waitUntil(By bylocator)
 	{
 		WebDriverWait wait=new WebDriverWait(driver, 150);
 		wait.until(ExpectedConditions.presenceOfElementLocated(bylocator));
+	}
+	
+	public static String capture(String screenshotName) throws IOException{
+		TakesScreenshot ts= (TakesScreenshot)driver;
+		File source = ts.getScreenshotAs(OutputType.FILE);
+		String  dest = System.getProperty("user.dir")+ "/Screenshot/"+screenshotName+".png";
+		File destination = new File(dest);
+		org.apache.commons.io.FileUtils.copyFile(source,destination);
+		return dest;
 	}
 }
