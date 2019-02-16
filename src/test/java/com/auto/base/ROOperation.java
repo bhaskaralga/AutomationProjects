@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
 
 
 public class ROOperation {
-
+	
 	/* Initialize webdriver
 	 * properties
 	 * logs
@@ -30,27 +30,27 @@ public class ROOperation {
 	 * DB
 	 * mail
 	 *Excel*/
-
+	
 	public static WebDriver driver;
 	public static Properties config = new Properties();
 	public static Properties OR = new Properties();
 	public static FileInputStream fis;
 	//public static Logger log=Logger.getLogger("ROOperation");
 	public static String browser;
-
-	public void setUp()
+	
+		public void setUp()
 	{
 		//BasicConfigurator.configure();
 		//to avoid log4j warning
 		if (driver == null){
-
+			
 			try {
 				System.out.println(System.getProperty("user.dir")+ "\\src\\test\\resources\\properties\\Config.properties");
 				fis = new FileInputStream(System.getProperty("user.dir")+ "\\src\\test\\resources\\properties\\Config.properties");
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-
+				
 				System.out.println();
 			}
 			try {
@@ -60,7 +60,7 @@ public class ROOperation {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+			
 			try {
 				fis = new FileInputStream(System.getProperty("user.dir")+"\\src\\test\\resources\\properties\\OR.properties");
 			} catch (FileNotFoundException e) {
@@ -78,19 +78,19 @@ public class ROOperation {
 			}
 		}
 		if (System.getenv("browser")!= null)
-		{
-			browser = System.getenv("browser");
-
-
-		}
+				{
+					browser = System.getenv("browser");
+					
+					
+				}
 		else{
-
-			browser = config.getProperty("browser");
-
-		}
+					
+					browser = config.getProperty("browser");
+					
+				}
 		config.setProperty(browser, browser);
 		if (config.getProperty("browser").equals("chrome"))
-
+			
 		{
 			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "\\src\\test\\resources\\executables\\chromedriver.exe");
 			driver = new ChromeDriver();
@@ -98,10 +98,10 @@ public class ROOperation {
 		}
 		//System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\chromedriver_win32\\chromedriver.exe");
 		//driver = new ChromeDriver();
-		driver.get(config.getProperty("testsiteurl"));
-		System.out.println("Navigated to : " + config.getProperty("testsiteurl").replace("{TestEnv}", System.getProperty("TestEnv")));
+		driver.get(config.getProperty("testsiteurl").replace("{TestEnv}", System.getProperty("TestEnv")));
+		System.out.println("Navigated to : " + config.getProperty("testsiteurl"));
 		driver.manage().window().maximize();
-
+		
 	}
 
 	public void click(String locator) {
@@ -113,9 +113,9 @@ public class ROOperation {
 		} else if (locator.endsWith("_id")) {
 			driver.findElement(By.id(OR.getProperty(locator))).click();
 		}
-
+		
 	}
-
+	
 	public void type(String locator, String value) {
 
 		if (locator.endsWith("_className")) {
@@ -127,15 +127,15 @@ public class ROOperation {
 			System.out.println(driver.findElement(By.id(OR.getProperty(locator))).getText());
 		}
 
-	}
-
+			}
+	
 	public void loginDetails(String un,String pwd,String id)
 	{
 		type("un_id",un);
 		type("pwd_id",pwd);
 		type("ID_id",id);
-
-
+		
+		
 	}
 
 	public void clickLogin()
@@ -154,7 +154,7 @@ public class ROOperation {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 	}
 	public void createNewRO()
 	{
@@ -164,9 +164,9 @@ public class ROOperation {
 		driver.findElement(By.xpath("//a[contains(text(),'New RO')]")).click();
 		//click("ro_xpath");
 		System.out.println("clicked on new ro");
-
+			
 	}
-
+	
 	public void searchCust()
 	{
 		waitUntil(By.id("searchName"));
@@ -175,13 +175,13 @@ public class ROOperation {
 		click("search_button_xpath");
 		waitUntil(By.xpath("//div[@id='customerSearchResults']//div[contains(@class,'customerItem')][1]//button"));
 	}
-
+	
 	public void clickSearchResults()
 	{
 		click("search_results_xpath");
-		System.out.println("serached customer");
+	System.out.println("serached customer");
 	}
-
+	
 	public void selectVehicle()
 	{
 		System.out.println("selecting vehicle");
@@ -193,30 +193,30 @@ public class ROOperation {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		waitUntil(By.xpath("//div[@id='newDTROModal']//button[contains(text(),'Next')]"));
 		System.out.println("click on next to add service");
 		System.out.print("Next Button   "+driver.findElement(By.xpath("//button[contains(text(),'Next')]")).isDisplayed());
 		click("next_but_xpath");
 		//driver.findElement(By.xpath("//div[@ng-controller='LoadingCtrl']//div[@class='modal-footer']//button[contains(text(),'Next')]")).click();
-
+		
 	}
-
+	
 	public void addService()
 	{
 		waitUntil(By.id("AddServiceButton"));
 		click("add_service_id");
-	}
-
+		}
+	
 	public void selectServiceDD()
 	{
-
+		
 		System.out.println("Please select DD    "+driver.findElement(By.xpath("//span[@class='select2-arrow']")).isDisplayed());
 		waitUntil(By.xpath("//span[@class='select2-arrow']"));
 		click("select_service_xpath");
-		//driver.findElement(By.xpath("//div//a[@class='select2-choice']//span[contains(text(),'Please Select')]")).click();
+	//driver.findElement(By.xpath("//div//a[@class='select2-choice']//span[contains(text(),'Please Select')]")).click();
 	}
-
+	
 	public void selectFromDD()
 	{
 		waitUntil(By.xpath("//ul[@class='select2-results']"));
@@ -227,17 +227,17 @@ public class ROOperation {
 			String serviceName = service.getText().replaceAll("\\s", "");
 			//A/T - Accumulator&nbsp;&nbsp;&nbsp;&nbsp;
 			System.out.println("entered for loop");
-
+			
 			System.out.println(service.getText());
 			if(service.getText().contains("A/T - Accumulator")){
-
+				
 				service.click();
 				break;
 			}
 
 		}
 	}
-
+	
 	public void enterDetails()
 	{
 		type("service_details_id","Test RO");
@@ -247,7 +247,7 @@ public class ROOperation {
 		type("serv_parts_id","1");
 		click("save_service_xpath");
 	}
-
+	
 	public void summary()
 	{
 		waitUntil(By.xpath("//button[contains(text(),'Summary')]"));
@@ -260,9 +260,9 @@ public class ROOperation {
 		System.out.println("enetering mileage");
 		waitUntil(By.id("createMileage"));
 		type("mileage_id","85420");
-
+		
 	}
-
+	
 	public void roSeq()
 	{
 		WebElement ro = driver.findElement(By.xpath(OR.getProperty("ro_xpath")));
@@ -272,7 +272,7 @@ public class ROOperation {
 		driver.findElement(By.xpath(OR.getProperty("ro_but_xpath"))).click();
 		System.out.println("clicked on create ro button");
 		waitUntil(By.xpath("//div[@class='RONum']"));
-		try {
+				try {
 			System.out.println("capturing screenshot");
 			capture("Ronumber");
 			System.out.println("captured screenshot");
@@ -280,15 +280,15 @@ public class ROOperation {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
+		
+		
 	}
 	public void waitUntil(By bylocator)
 	{
 		WebDriverWait wait=new WebDriverWait(driver, 150);
 		wait.until(ExpectedConditions.presenceOfElementLocated(bylocator));
 	}
-
+	
 	public static String capture(String screenshotName) throws IOException{
 		TakesScreenshot ts= (TakesScreenshot)driver;
 		File source = ts.getScreenshotAs(OutputType.FILE);
