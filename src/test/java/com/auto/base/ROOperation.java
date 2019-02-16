@@ -98,6 +98,7 @@ public class ROOperation {
 		}
 		//System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\chromedriver_win32\\chromedriver.exe");
 		//driver = new ChromeDriver();
+		System.out.println(System.getProperty("TestEnv"));
 		driver.get(config.getProperty("testsiteurl").replace("{TestEnv}", System.getProperty("TestEnv")));
 		System.out.println("Navigated to : " + config.getProperty("testsiteurl"));
 		driver.manage().window().maximize();
